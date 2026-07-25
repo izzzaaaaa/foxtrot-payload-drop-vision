@@ -1,7 +1,7 @@
 import cv2
 cap=cv2.VideoCapture(0) #opens connection default webcam
 while True:
-    ret, frame=cap.read()
+    ret, frame=cap.read() #grabbing frame by frame
     if not ret:
         print("Failed to grab frame")
         break
@@ -10,5 +10,5 @@ while True:
     if cv2.waitKey(1) & 0xFF ==ord('q'): #press q to quit
         break
 
-cap.release()
+cap.release() #free webcam
 cv2.destroyAllWindows()
