@@ -10,4 +10,4 @@
 
 | Date | Stage | Observation |
 |------|-------|-------------|
-| 2026-26-7 | Raw mask (before erosion/dilation) | Mask was already very clean with calibrated HSV range — minimal background noise visible even before cleanup |
+| 2026-26-7 | Raw mask (before erosion/dilation) | Mask was already very clean with calibrated HSV range, minimal background noise visible even before cleanup |
