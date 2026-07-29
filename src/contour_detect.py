@@ -23,8 +23,9 @@ while True:
         #picking largest blob
         area = cv2.contourArea(largest) #finds acc num
         if area > min_area:
-            x,y,w,h = cv2.boundingRect(largest) #converts 
-            cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), 2)
+            x,y,w,h = cv2.boundingRect(largest) #converts contour to rect
+            cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), 2) 
+            #draw box and label
             cv2.putText(frame, f"Area: {area}", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 2)
 
         cv2.imshow("Contours", frame)
