@@ -16,12 +16,14 @@ while True:
     cleaned = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel) #removes noise
     cleaned = cv2.morphologyEx(cleaned, cv2.MORPH_CLOSE, kernel) #fills the holes
 
+                                            #only outer bound       only corner pts
     contours, _= cv2.findContours(cleaned, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     if contours:
-        largest = max(contours, key=cv2.contourArea)
-        area = cv2.contourArea(largest)
+        largest = max(contours, key=cv2.contourArea) #b4 comparing run through key
+        #picking largest blob
+        area = cv2.contourArea(largest) #finds acc num
         if area > min_area:
-            x,y,w,h = cv2.boundingRect(largest)
+            x,y,w,h = cv2.boundingRect(largest) #converts 
             cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), 2)
             cv2.putText(frame, f"Area: {area}", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 2)
 
