@@ -10,7 +10,7 @@ while True:
     if not ret:
         break
 
-    frame_h, frame_w = frame.shape[:2]
+    frame_h, frame_w = frame.shape[:2]#slicing h and w
     frame_center = (frame_w // 2, frame_h // 2)
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
