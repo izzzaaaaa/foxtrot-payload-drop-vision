@@ -21,3 +21,9 @@
 | 28-7-2026 | distance test result | Drops below 800 min area distance at around one arm's length |
 | 28-7-2026 | similar color object test result | Box still locks onto correct marker as long as it is larger than second introduced marker |
 | 28-7-2026 | Covering test result | Contour still gets picked up with the area decreasing  |
+
+## Drop Trigger
+
+| Date | Test | Result |
+|------|------|--------|
+| 30-7-2026 | Marker moved to frame center | "DROP TRIGGERED" printed correctly, vehicle mode confirmed as stabilized |
