@@ -11,7 +11,7 @@ while True:
         break
 
     frame_h, frame_w = frame.shape[:2]#slicing h and w
-    frame_center = (frame_w // 2, frame_h // 2)
+    frame_center = (frame_w // 2, frame_h // 2) #middle pixel of cam frame
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(hsv, LOWER_HSV, UPPER_HSV)
@@ -25,14 +25,14 @@ while True:
         area = cv2.contourArea(largest)
 
         if area > MIN_AREA:
-            M = cv2.moments(largest)
+            M = cv2.moments(largest) #all moment values
 
             if M["m00"] != 0:
-                cx = int(M["m10"] / M["m00"])
+                cx = int(M["m10"] / M["m00"]) #avg position
                 cy = int(M["m01"] / M["m00"])
 
                 # Draw crosshair on the marker's centroid
-                cv2.drawMarker(frame, (cx, cy), (0, 255, 0), markerType=cv2.MARKER_CROSS, markerSize=20, thickness=2)
+                cv2.drawMarker(frame, (cx, cy), (0, 255, 0), markerType=cv2.MARKER_CROSS, markerSize=20, thickness=2) #crosshair on shape
                 cv2.putText(frame, f"({cx}, {cy})", (cx + 15, cy - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
     # Draw frame center reference (a different color so you can visually compare)
