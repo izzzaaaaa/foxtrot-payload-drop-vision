@@ -3,7 +3,7 @@ import numpy as np
 from dronekit import connect
 from markerconfig import LOWER_HSV, UPPER_HSV
 
-TOLERANCE = 30  #how close Cx Cy must be to frame center
+TOLERANCE = 20  #how close Cx Cy must be to frame center
 MIN_AREA = 800
 
 print("Connecting to vehicle on: tcp:127.0.0.1:5762")
@@ -19,6 +19,7 @@ while True:
         break
 
     frame_h, frame_w = frame.shape[:2]
+    #print(f"Frame size: {frame_w} x {frame_h}")
     frame_cx, frame_cy = frame_w // 2, frame_h // 2
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
