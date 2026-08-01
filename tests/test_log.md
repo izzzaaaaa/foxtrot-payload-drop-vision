@@ -27,3 +27,15 @@
 | Date | Test | Result |
 |------|------|--------|
 | 30-7-2026 | Marker moved to frame center | "DROP TRIGGERED" printed correctly, vehicle mode confirmed as stabilized |
+
+## Drop-Trigger Accuracy Log
+
+TOLERANCE = 20px | Frame center: (320, 240) | Frame res: 640x480
+
+| Trial | Intended Position | Classification |
+|-------|-------------------|----------------|
+| 1 | Centered(by eye) | DROP TRIGGERED - True Positive |
+| 2 | Centered (by eye) | DROP TRIGGERED - True Positive |
+| 3 | Clearly off-center (left/right) | Not aligned - True Negative |
+| 4 | Clearly off-center (up/down) | Not aligned - True Negative |
+| 5 | Near tolerance edge (offset_x hovering 19-20) | Alternated between "Not aligned" and "DROP TRIGGERED" without deliberate marker movement - likely False Positives, since intended position was borderline |
