@@ -25,3 +25,9 @@ Build an end-to-end pipeline: camera feed → HSV masking → contour detection 
 - [ ] Test log: performance under lighting variation, marker distance, partial occlusion,
       multiple similar-colored objects
 - [ ] Drop-trigger accuracy log: correct DROP fires vs. false positives/negatives
+
+## Frame Rate Optimization
+
+| Test | Result |
+|------|--------|
+| Raw per frame FPS | Highly variable (40-200), reflecting laptop cam's capture rate against python loop speed |
