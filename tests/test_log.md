@@ -48,3 +48,9 @@ TOLERANCE = 20px | Frame center: (320, 240) | Frame res: 640x480
 | 2-8-2026 | 50% occluded | Still detected, centroid recalculated based on visible portion |
 | 2-8-2026 | 75% occluded | Not detected, area dropped below MIN_AREA threshold |
 | 2-8-2026 | Second similar colored object introduced | Ignored correctly, system continued tracking original marker(largest contour) |
+
+## Velocity Correction Testing
+
+| Test | Result |
+|------|--------|
+| Sent velocity commands via send_ned_velocity() while vehicle in STABILIZE mode | Commands sent with no errors, but vehicle did not respond since STABILIZE mode ignores velocity and only accepts manual control input |
