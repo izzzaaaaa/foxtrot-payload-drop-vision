@@ -39,3 +39,12 @@ TOLERANCE = 20px | Frame center: (320, 240) | Frame res: 640x480
 | 3 | Clearly off-center (left/right) | Not aligned - True Negative |
 | 4 | Clearly off-center (up/down) | Not aligned - True Negative |
 | 5 | Near tolerance edge (offset_x hovering 19-20) | Alternated between "Not aligned" and "DROP TRIGGERED" without deliberate marker movement - likely False Positives, since intended position was borderline |
+
+## Occlusion & Multi-Object Testing
+
+| Date | Test | Observation |
+|------|------|-------------|
+| 2-8-2026 | 25% occluded | Still detected, centroid recalculated based on visible portion |
+| 2-8-2026 | 50% occluded | Still detected, centroid recalculated based on visible portion |
+| 2-8-2026 | 75% occluded | Not detected, area dropped below MIN_AREA threshold |
+| 2-8-2026 | Second similar colored object introduced | Ignored correctly, system continued tracking original marker(largest contour) |
