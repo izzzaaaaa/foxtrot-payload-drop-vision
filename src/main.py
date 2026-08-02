@@ -2,6 +2,9 @@ import cv2
 import numpy as np
 from dronekit import connect
 from markerconfig import LOWER_HSV, UPPER_HSV
+import time
+
+prev_time = time.time() #current timestamp
 
 TOLERANCE = 20  #how close Cx Cy must be to frame center
 MIN_AREA = 800
@@ -50,6 +53,11 @@ while True:
                     print(f"Not aligned | offset_x={offset_x}, offset_y={offset_y}")
 
     cv2.drawMarker(frame, (frame_cx, frame_cy), (0, 0, 255), markerType=cv2.MARKER_CROSS, markerSize=20, thickness=2)
+    curr_time = time.time()
+    fps = 1 / (curr_time-prev_time) #formula
+    prev_time = curr_time
+    cv2.putText(frame, f"FPS: {int(fps)}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
+
     cv2.imshow("Payload Drop Vision", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
