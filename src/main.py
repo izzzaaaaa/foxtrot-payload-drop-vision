@@ -3,6 +3,19 @@ import numpy as np
 from dronekit import connect
 from markerconfig import LOWER_HSV, UPPER_HSV
 import time
+from pymavlink import mavutil
+
+def send_ned_velocity(vehicle, vx, vy, vz):
+    msg = vehicle.message_factory.set_position_target_local_ned_encode(
+        0, 0, 0,
+        mavutil.mavlink.MAV_FRAME_BODY_NED,
+        0b0000111111000111,  # ignore position only use sent values
+        0, 0, 0,
+        vx, vy, vz,
+        0, 0, 0,
+        0, 0)
+    vehicle.send_mavlink(msg)
+    vehicle.flush() #send immediately
 
 prev_time = time.time() #current timestamp
 
@@ -47,11 +60,16 @@ while True:
                 offset_x = cx - frame_cx #how far centroid from centre
                 offset_y = cy - frame_cy
 
+                SCALE = 0.001 #scaling factor for velocity
                 if abs(offset_x) < TOLERANCE and abs(offset_y) < TOLERANCE:
                     print(f"DROP TRIGGERED | Cx={cx}, Cy={cy} | Vehicle mode: {vehicle.mode.name}")
+                    send_ned_velocity(vehicle, 0, 0, 0)  # stop moving aligned
                 else:
-                    print(f"Not aligned | offset_x={offset_x}, offset_y={offset_y}")
-
+                    vx = -offset_y * SCALE   # forward/back correction
+                    vy = offset_x * SCALE    # left/right correction
+                    send_ned_velocity(vehicle, vx, vy, 0)
+                    print(f"Correcting | vx={vx:.3f}, vy={vy:.3f}")
+                                    
     cv2.drawMarker(frame, (frame_cx, frame_cy), (0, 0, 255), markerType=cv2.MARKER_CROSS, markerSize=20, thickness=2)
     curr_time = time.time()
     fps = 1 / (curr_time-prev_time) #formula
